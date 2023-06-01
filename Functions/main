@@ -1,0 +1,25 @@
+import price
+import handler as hd
+import annual_series as ap
+import volume as vl
+import matplotlib.pyplot as plt
+import pandas as pd
+import analysis
+import numpy as np
+def main():
+   data =  price.get_price('TSLA')
+   dict1 = hd.handle_json(data,True)
+   
+   last_year = ap.time_series_recent(dict1["Weekly Time Series"])
+   a = analysis.Analysis('IDCC',datadic=last_year)
+   #print(a.get_datadic())
+   #print(vl.average_volume(last_year))
+   a.cleaner()
+   plt.plot(a.dates,a.close,'r--',a.open,'b--')
+   plt.ylabel('closes')
+   plt.show()
+
+   #print(type(dict1["Weekly Time Series"]["2023-05-31"]))
+
+
+main()
