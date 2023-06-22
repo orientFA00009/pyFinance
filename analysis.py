@@ -3,8 +3,7 @@ from typing import Any
 
 class Analysis:
     #analysis obj takes
-    def __init__(self,name,datadic,aspect1,aspect2):  
-        self.name = name
+    def __init__(self,datadic,aspect1,aspect2):  
         self.dataTuple = []   #hold all relevant data(open,close,high,low,volume in a list of tuple)
         self.dates = []
         self.data1 = []
@@ -13,9 +12,9 @@ class Analysis:
             self.dates.append(k) 
             for k1,v1 in v.items():
                 if aspect1 in k1:
-                    self.data1.append(v1)
+                    self.data1.append(float(v1))
                 elif aspect2 in k1:
-                    self.data2.append(v1)
+                    self.data2.append(float(v1))
             #self.dataTuple.append((float(v['1. open']),float(v['2. high']),float(v['3. low']),float(v['4. close']),int(v['5. volume'])))
         
         
@@ -23,10 +22,6 @@ class Analysis:
     #    return self.interval
     #def set_interval(self, new_interval):
     #    self.interval = new_interval
-    def get_name(self):
-        return self.name
-    def set_name(self, n):
-        self.name = n
     def get_datadic(self):
         return self.datadic
     def get_data1(self):

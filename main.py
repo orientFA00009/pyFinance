@@ -1,6 +1,5 @@
 import price
 import handler as hd
-import annual_series as ap
 import volume as vl
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -11,22 +10,21 @@ def main():
    if interactive:
       print("what equity would you like to see?")
       strS = input()
-      print("what calendar year would you like to view?")
-      strY = input()
    else:
       strS = 'TSLA'
-      strY = '2023'
-   data =  price.get_weekly_price_data(strS)
-   dict1 = hd.handle_json(data,1)
-   year = ap.time_series_recent(dict1["Weekly Time Series"],strY)
-   a = analysis.Analysis(strY,year,'high','low')
+   data =  price.get_price_data(strS,"weekly")
+   dict1 = price.handle_json(data,1)
+   print(type(dict1))
+   dataPoints = 1000
+   year = price.time_series_weekly(dict1["Weekly Time Series"],dataPoints) # max 1039
+   print(len(year))
+   a = analysis.Analysis(year,'open','close')
    list1 = ["Open","High","Low","Close","Volume"]
-   #a.fill_data(1,2)
-   #li = a.datadic.values()
-   #print(li.values())
+   print(len(a.data1))
+   print(len(a.data2))
    plt.plot(a.dates,a.data1,'r--',a.data2,'b--')
    ax = plt.gca()
-   ax.set_xticks(ax.get_xticks()[::5])
+   ax.set_xticks(ax.get_xticks()[::round(dataPoints/10.4)])
    plt.ylabel(list1[1] + " & " + list1[2])
    plt.show()
 
